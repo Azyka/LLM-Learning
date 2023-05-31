@@ -40,4 +40,4 @@ $$
 - 文本相似：两个句子分开处理得到两个 $h^m_l$，将两个序列逐元素相加的结果传到输出层。
 - 问题回答和常识推理：给定三元组（文档$z$，问题$q$，一组可能的回答$\{a_k\}$）。将文档和问题连接后，分别与每个可能答案使用分隔符连接得到 $\{z;q;\$;a_k\}$ 。将所有得到的序列独立输入模型，通过softmax层对输出进行归一化，生成可能的答案上的概率分布。
 
-![image-20230531111544244](images\Improving Language Understanding by Generative Pre 365f51db26df4cada77c75d47296c3bc\image-20230531111544244.png)
+![image-20230531111544244](./images\Improving Language Understanding by Generative Pre 365f51db26df4cada77c75d47296c3bc\image-20230531111544244.png)
