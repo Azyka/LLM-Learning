@@ -7,7 +7,7 @@ GPT模型包含2个阶段：pre-training和fine-tuning。pre-training阶段从�
 
 GPT与BERT主要的差异之一是GPT使用Transformer模型的decoder结构，而BERT使用encoder结构。
 
-给定一个tokne样本  $U= \{u_1,...,u_n\}$，GPT进行建模使目标函数最大化：
+给定一个tokne样本  $U= \{u_1,...,u_n\}$，GPT使用标准的language modeling目标最大化以下函数：
 
 $$
 L(U)=\sum_i\log P(u_i|u_{i-k},…,u_{i-1};\Theta)
