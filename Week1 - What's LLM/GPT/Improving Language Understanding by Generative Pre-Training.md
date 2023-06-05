@@ -1,4 +1,4 @@
-# Improving Language Understanding Generative Pre-Training
+# Improving Language Understanding by Generative Pre-Training
 # 模型结构
 
 GPT模型包含2个阶段：pre-training和fine-tuning。pre-training阶段从大量的无标签文本中学习建立语言模型。fine-tuning阶段基于标注的数据集针对下游分类任务进行训练。这种设计方案与BERT模型类似，但其实初代GPT的发布时间更早。
