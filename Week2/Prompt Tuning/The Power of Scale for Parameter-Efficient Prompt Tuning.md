@@ -58,6 +58,8 @@ $$
 
 每个prompt参数训练只基于单个SuperGLUE任务，不支持多任务设置。训练时，将每个任务的名称插入到输入的头部来标识样例归属。
 
+![image-20230609125519651](./images/The Power of Scale for Parameter-Efficient Prompt Tuning/image-20230609125519651.png)
+
 ## 方法效果比较
 
 ![image-20230609120424455](./images/The Power of Scale for Parameter-Efficient Prompt Tuning/image-20230609120424455.png)
