@@ -16,7 +16,7 @@ intrinsic dimensionality（本征维度）：目标函数达到精确解决优�
 
 对预训练模型而言，衡量本征维度告诉我们在对每个任务进行微调时需要多少空余参数才能大概解决优化问题。
 
-标准的预训练模型仅需少量参数就可以学习大量NLP任务，预训练本身实在为后续NLP任务调整最小化本征维度。因此，文章认为预训练实际上是一个学习如何压缩平均NLP任务的框架。
+标准的预训练模型仅需少量参数就可以学习大量NLP任务，预训练本身是在为下游NLP任务最小化本征维度。因此，文章认为预训练实际上是一个学习压缩平均NLP任务的框架。
 
 
 
@@ -30,7 +30,7 @@ $\theta^D=\theta^D_0+P(\theta^d)$
 
 其中 $P:\mathbb{R}^d\rightarrow\mathbb{R}^D$，将参数从低维d映射到高维D。[Li等人](https://arxiv.org/abs/1804.08838)提出了3种映射方法，分别是random linear dense projection（随即线性密集映射）、random linear sparse projection（随机线性稀疏映射）、通过 Fastfood transform 进行随机线性映射。
 
-### DID
+### Direct Intrinsic Dimension（DID）
 
 文中主要采用 Fastfood transform，其定义为：
 
@@ -40,7 +40,7 @@ $M$ 可以被分解为Hadamard 矩阵 $H$，具有独立标准正规项的随机
 
 定义达到训练完整权重矩阵效果的90%为令人满意的效果，目标是寻找最小的维度d，使得调整效果达到训练完整权重矩阵准确率的90%（如果完整模型训练后准确率85%，那么调整后目标准确率为0.9*85%=76.5%），称其为维度 $d_{90}$。
 
-### SAID
+### Structure Aware Intrinsic Dimension（SAID）
 
 更进一步可以对模型中每一层的参数进行本征维度计算，称为Structure-Aware Intrinsic Dimension (SAID) 方法：
 
@@ -72,7 +72,7 @@ $\theta^D_i=\theta^D_{0,i}+\lambda_i P(\theta^{d-m})_i$
 
 - 完全更新模型参数：参数量过大，效率低下，存储所有微调后的模型相当困难
 - Adapter：引入推理延迟，需要在效率和模型质量之间权衡
-- prefix tuning（对prompt微调）：优化难度大，其性能在可训练参数中非单调变化。更重要的是，只保留一部分序列长度必然会导致下游任务可用的序列长度减少，可能导致模型性能不如其他方法。
+- prefix tuning（对prompt微调）：优化难度大，其性能在可训练参数增加时非单调变化。更重要的是，固定一部分序列长度必然会导致下游任务可用的序列长度减少，可能导致模型性能不如其他方法。
 
 
 
