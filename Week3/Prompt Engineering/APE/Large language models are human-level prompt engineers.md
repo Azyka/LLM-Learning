@@ -60,17 +60,17 @@ $$
 
 1. **Forward Mode Generation.** 将上面描述的概率分布转变为自然语言形式，作为模型prompt。
 
-   ![image-20230619122839661](./Large language models are human-level prompt engineers/image-20230619122839661.png)
+   ![Forward Mode Generation](./Large language models are human-level prompt engineers/image-20230619122839661.png)
 
 2. **Reverse Mode Generation.** Forward模式生成指令本质上是对prompt内容的补充。然而指令实际上需要出现的输入的最前面，与forward插入在末尾的形式存在冲突。我们希望产生一条能够插入在任意位置的指令。
 
    因此，作者提出了reverse模式，利用了LLM的填空能力（如T5、GLM、InsertGPT），推测文本中空缺的指令。
 
-   ![image-20230619122855571](./Large language models are human-level prompt engineers/image-20230619122855571.png)
+   ![Reverse Mode Generation](./Large language models are human-level prompt engineers/image-20230619122855571.png)
 
 3. **Customized Prompts.** 作者认为根据分数计算函数的不同，合适的模板也不同，可以自行设计其他合适的prompt来生成指令。对应实验TruthfulQA的模板如下图所示。
 
-   ![image-20230619122910289](./Large language models are human-level prompt engineers/image-20230619122910289.png)
+   ![Customized Prompts](./Large language models are human-level prompt engineers/image-20230619122910289.png)
 
 
 
@@ -90,7 +90,7 @@ $$
 
 考虑在当前最佳候选指令的周围空间进行搜索，而不是从初始状态重新取样。这种方法产生高质量质量的可能性更高，称该方法为**迭代APE**。每个阶段，都会评估一组指令，并去除其中的低分候选，然后要求 LLM 生成与高分指令相似的新指令。这里使用的模型提示如下:
 
-![image-20230619122932639](./Large language models are human-level prompt engineers/image-20230619122932639.png)
+![Resampling](./Large language models are human-level prompt engineers/image-20230619122932639.png)
 
 值得注意的是，尽管迭代搜索使指令的整体质量提高，但得分最高的指令在多个阶段中基本一致。所以可以认为迭代生成方式只能带来有限的提高，实验中默认采用不包含迭代搜索的APE方法。
 
@@ -110,13 +110,13 @@ $$
 
 ### Zero-shot
 
-![image-20230616174620059](./Large language models are human-level prompt engineers/image-20230616174620059.png)
+![Zero-shot表现](./Large language models are human-level prompt engineers/image-20230616174620059.png)
 
 ### Few-shot
 
 主要展示了APE生成指令与上下文学习能力结合前后的对比
 
-![image-20230616174820846](./Large language models are human-level prompt engineers/image-20230616174820846.png)
+![Few-shot表现](./Large language models are human-level prompt engineers/image-20230616174820846.png)
 
 
 
@@ -124,7 +124,7 @@ $$
 
 作者构建了一个包含 BigBench-Hard 中9个问题，累计包含21个任务的指令归纳Benchmark—— BIG-Bench Instruction Induction (BBII)。并在此基础上对APE+InstructGPT的效果进行了评估。
 
-![image-20230616175328104](./Large language models are human-level prompt engineers/image-20230616175328104.png)
+![BIGBench对比](./Large language models are human-level prompt engineers/image-20230616175328104.png)
 
 ## Zero-shot CoT
 
@@ -132,7 +132,7 @@ $$
 
 其效果比原prompt——"Let’s think step by step."略有提升。
 
-![image-20230616175647558](./Large language models are human-level prompt engineers/image-20230616175647558.png)
+![CoT效果提升](./Large language models are human-level prompt engineers/image-20230616175647558.png)
 
 
 
@@ -144,7 +144,7 @@ $$
 
 整体流程都与论文中描述的一致，我好奇的地方在于评分函数的实现
 
-实际上，评分函数之类内容实现的方式就是把输入输出套个模板丢进OpenAI提供的接口，返回评分进行分析。
+实际上，评分函数之类内容实现的方式就是把输入输出套个模板丢进OpenAI提供的text-davinci-002接口，返回评分进行分析。
 
 ```python
 def __log_probs(self, text, log_prob_range=None):
